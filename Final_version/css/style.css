@@ -1,0 +1,6 @@
+.scale {
+    transition: .2s; /* Время эффекта */
+}
+.scale:hover {
+    transform: scale(7.9); /* Увеличиваем масштаб */
+}
