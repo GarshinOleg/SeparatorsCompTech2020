@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Позиционирование флажков сепаратора</title>
+  <!-- MDB icon значок на вкладке-->
+  <link rel="icon" href="img/evraz.ico" type="image/x-icon">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link href="css/addons/datatables.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Start your project here-->
+  <div>
+    <button class="filtersVisibleButton btn btn-primary btn-sm" type="button">Выбрать фильтры</button>
+    <form style='display: none; background-color: WhiteSmoke; font-size: .7rem' id='filtersForm'>
+      <!-- ----------------фильтр По номеру сепаратора---------------------------------------------------- -->
+      <div class="row">
+        <div class="col-2">
+          <label>По номеру сепаратора:</label>
+        </div>
+        <div class="col">
+          <select name="separatorSelect" id="separatorSelect">
+            <!--class="custom-select"-->
+            <option id="sepAll" value="sepAll">-</option>
+            <option id="sep1" value="1">1</option>
+            <option id="sep2" value="2">2</option>
+            <option id="sep3" value="3">3</option>
+            <option id="sep4" value="4">4</option>
+            <option id="sep5" value="5">5</option>
+            <option id="sep6" value="6">6</option>
+            <option id="sep7" value="7">7</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- фильтр По периоду времени -->
+      <div class="row">
+        <div class="col-2">
+          <label>По периоду времени:</label>
+        </div>
+        <div class="col">
+          <input type="datetime-local" name="minDate" id="minDate" value="2020-01-01T00:00" min="2020-01-01T00:00"
+            max="2020-12-31T23:58">
+          &#247;
+          <input type="datetime-local" name="maxDate" id="maxDate" value="2020-01-31T23:59" min="2020-01-01T00:01"
+            max="2020-12-31T23:59">
+        </div>
+      </div>
+
+      <!-- фильтр По типу флага -->
+      <div class="row">
+        <div class="col-2">
+          <label>По типу флага:</label>
+        </div>
+        <div class="col">
+          <select name="flag" id="flag">
+            <option id="noneflags" value="both">оба</option>
+            <option id="leftflag" value="left">левый</option>
+            <option id="rightflag" value="right">правый</option>
+          </select><Br>
+        </div>
+      </div>
+
+      <!-- фильтр По позиции флажка НОВЫЙ Bootstrap 4-->
+
+      <div class="row">
+        <div class="col-2">
+          <label>По позиции флажка:</label>
+        </div>
+        <div class="col ">
+          <label>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input " id="checkboxPositionFlag1" checked>
+              <label class="custom-control-label" for="checkboxPositionFlag1" style="font-size: .9rem; ">
+                1&nbsp;&nbsp;</label>
+            </div>
+          </label>
+          <label>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="checkboxPositionFlag2" checked>
+              <label class="custom-control-label " for="checkboxPositionFlag2"
+                style="font-size: .9rem;">2&nbsp;&nbsp;</label>
+            </div>
+          </label>
+          <label>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="checkboxPositionFlag3" checked>
+              <label class="custom-control-label" for="checkboxPositionFlag3"
+                style="font-size: .9rem;">3&nbsp;&nbsp;</label>
+            </div>
+          </label>
+          <label>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="checkboxPositionFlag4" checked>
+              <label class="custom-control-label" for="checkboxPositionFlag4"
+                style="font-size: .9rem;">4&nbsp;&nbsp;</label>
+            </div>
+          </label>
+          <label>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="checkboxPositionFlag5" checked>
+              <label class="custom-control-label" for="checkboxPositionFlag5"
+                style="font-size: .9rem;">5&nbsp;&nbsp;</label>
+            </div>
+          </label>
+          <label>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="checkboxPositionFlag6" checked>
+              <label class="custom-control-label" for="checkboxPositionFlag6"
+                style="font-size: .9rem;">6&nbsp;&nbsp;</label>
+            </div>
+          </label>
+          <label>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="checkboxPositionFlag7" checked>
+              <label class="custom-control-label" for="checkboxPositionFlag7"
+                style="font-size: .9rem;">7&nbsp;&nbsp;</label>
+            </div>
+          </label>
+          <Br>
+        </div>
+      </div>
+      <!-- фильтр По вероятности актуального положения флажка, (50-100,% шаг 10) -->
+      <div class="row">
+        <div class="col-2">
+          <label>По вероятности актуального положения флажка, %:</label>
+        </div>
+        <div class="col">
+          <select name="fromChanceActualFlagSelect" id="fromChanceActualFlagSelect">
+            <option id="fromChanceActualFlagSelect50" value="50">50</option>
+            <option id="fromChanceActualFlagSelect60" value="60">60</option>
+            <option id="fromChanceActualFlagSelect70" value="70">70</option>
+            <option id="fromChanceActualFlagSelect80" value="80">80</option>
+            <option id="fromChanceActualFlagSelect90" value="90">90</option>
+          </select>
+          &#247;
+          <select name="toChanceActualFlagSelect" id="toChanceActualFlagSelect">
+            <option id="toChanceActualFlagSelect100" value="100">100</option>
+            <option id="toChanceActualFlagSelect90" value="90">90</option>
+            <option id="toChanceActualFlagSelect80" value="80">80</option>
+            <option id="toChanceActualFlagSelect70" value="70">70</option>
+            <option id="toChanceActualFlagSelect60" value="60">60</option>
+          </select>
+        </div>
+      </div>
+      <!-- кнопка подтверждения формы "Применить все фильтры" -->
+      <button class="btn btn-primary btn-sm" id="submitButton" type="submit">Применить все фильтры</button>
+    </form>
+  </div>
+
+  <!-- начало данных таблицы -->
+  <table id="selectedColumn" class="table table-bordered table-sm table-hover align-bottom" cellspacing="0" width="100%"
+    style="text-align: center; font-size: .5rem;">
+    <thead class="tableClass">
+      <tr>
+        <th class="th-sm">№ сепаратора
+        </th>
+        <th class="th-sm">Дата и время изменения
+        </th>
+        <th class="th-sm">Тип флажка левый/правый
+        </th>
+        <th class="th-sm">Позиция флажка
+        </th>
+        <th class="th-sm">Вероятность актуального положения флажка, %
+        </th>
+        <th class="th-sm">Вероятности всех положений флажка, %
+        </th>
+        <th class="th-sm">Изображение (кадр) на основании которого было сделан прогноз
+        </th>
+      </tr>
+    </thead>
+    <tbody id="table_body">
+      <tr>
+        <td>1</td>
+        <td>2020.02.03 21:04</td>
+        <td>левый</td>
+        <td>1</td>
+        <td>85</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>85</td>
+                <td>8</td>
+                <td>4</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l1.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.02.03 21:05</td>
+        <td>левый</td>
+        <td>2</td>
+        <td>82</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td>82</td>
+                <td>5</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l2.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.02.03 21:06</td>
+        <td>левый</td>
+        <td>5</td>
+        <td>86</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>4</td>
+                <td>86</td>
+                <td>6</td>
+                <td>1</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l5.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.02.03 21:07</td>
+        <td>левый</td>
+        <td>6</td>
+        <td>85</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>7</td>
+                <td>85</td>
+                <td>5</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l6.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.02.03 21:08</td>
+        <td>правый</td>
+        <td>4</td>
+        <td>87</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>1</td>
+                <td>5</td>
+                <td>87</td>
+                <td>5</td>
+                <td>2</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/r4.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.02.03 21:09</td>
+        <td>правый</td>
+        <td>5</td>
+        <td>83</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>4</td>
+                <td>7</td>
+                <td>83</td>
+                <td>3</td>
+                <td>1</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/r5.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.02.03 21:10</td>
+        <td>правый</td>
+        <td>7</td>
+        <td>87</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>2</td>
+                <td>7</td>
+                <td>87</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/r7.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.02.03 21:11</td>
+        <td>левый</td>
+        <td>3</td>
+        <td>85</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>6</td>
+                <td>85</td>
+                <td>5</td>
+                <td>2</td>
+                <td>1</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l1.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.02.03 21:12</td>
+        <td>левый</td>
+        <td>5</td>
+        <td>84</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>2</td>
+                <td>6</td>
+                <td>84</td>
+                <td>4</td>
+                <td>2</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l1.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.02.03 21:13</td>
+        <td>левый</td>
+        <td>6</td>
+        <td>85</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>2</td>
+                <td>6</td>
+                <td>85</td>
+                <td>4</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l1.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.01.01 10:00</td>
+        <td>левый</td>
+        <td>5</td>
+        <td>90</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>6</td>
+                <td>94</td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l1.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.01.01 10:00</td>
+        <td>левый</td>
+        <td>5</td>
+        <td>90</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>6</td>
+                <td>94</td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l1.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.01.01 10:00</td>
+        <td>левый</td>
+        <td>5</td>
+        <td>90</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>6</td>
+                <td>94</td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l1.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.01.01 10:00</td>
+        <td>левый</td>
+        <td>5</td>
+        <td>90</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>6</td>
+                <td>94</td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l1.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.01.01 10:00</td>
+        <td>левый</td>
+        <td>5</td>
+        <td>90</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>6</td>
+                <td>94</td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l1.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.01.01 10:00</td>
+        <td>левый</td>
+        <td>5</td>
+        <td>90</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>6</td>
+                <td>94</td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l1.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.01.01 10:00</td>
+        <td>левый</td>
+        <td>5</td>
+        <td>90</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>6</td>
+                <td>94</td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l1.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.01.01 10:00</td>
+        <td>левый</td>
+        <td>5</td>
+        <td>90</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>6</td>
+                <td>94</td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l1.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.01.01 10:00</td>
+        <td>левый</td>
+        <td>55</td>
+        <td>90</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>6</td>
+                <td>94</td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l1.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2020.01.01 10:00</td>
+        <td>левый</td>
+        <td>5</td>
+        <td>90</td>
+        <td style="padding: 0px">
+          <div>
+            <table align="center" bgcolor="WhiteSmoke" cellspacing="0" width="100%">
+              <tr>
+                <td style="text-align: center; font-weight: bold;">1</td>
+                <td style="text-align: center; font-weight: bold">2</td>
+                <td style="text-align: center; font-weight: bold">3</td>
+                <td style="text-align: center; font-weight: bold">4</td>
+                <td style="text-align: center; font-weight: bold">5</td>
+                <td style="text-align: center; font-weight: bold">6</td>
+                <td style="text-align: center; font-weight: bold">7</td>
+              </tr>
+              <tr>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>6</td>
+                <td>94</td>
+                <td>4</td>
+                <td>0</td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td style="padding: 0px"><img style="padding: 0px" src="img/presentation/l1.bmp" alt="Ссылка на фото"
+            height="55" class="scale"></td>
+      </tr>
+
+
+      </tfoot>
+  </table>
+
+  <!-- конец данных таблицы -->
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/addons/datatables.min.js"></script>
+  <!-- скрипт Олега, где подключаются фичи DataTables -->
+  <script src="js/pluginscript.js"></script>
+  <!-- скрипт Олега, где логика кнопок-->
+  <script src="js/filtersButton.js"></script>
+  <!-- скрипт Николая, где находится серверная логика всего приложения-->
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>
